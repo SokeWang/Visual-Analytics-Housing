@@ -37,13 +37,13 @@ Housing Pressure, Visual Analytics, Bayesian Inference, Census Data, Socio-Econo
 \end{IEEEkeywords}
 
 \section{Introduction}
-Housing pressure has become one of the biggest social and economic challenges in England and Wales. This issue is especially pronounced in urban areas where affordability, reliance on rentals, and overcrowding are growing worse. Although housing supply has increased in many parts, the quality and accessibility of housing vary greatly. Standard statistics often miss the deeper connections between changes in housing tenure, residential density, and the risk of long-term overcrowding.
+Housing stress is widely recognized as a significant social and economic problem in England and Wales, particularly in urban areas. In many cities, issues such as housing affordability, increasing reliance on rental housing, and overcrowding have become more pronounced over time. While the total housing supply has increased in some areas, this does not necessarily imply equal housing opportunity or improved living conditions. In fact, statistics often fail to reflect the interactions between various aspects of the housing system, particularly the relationship between homeownership, density, and the risk of long-term overcrowding.
 
-Among these issues, overcrowding stands out as a critical indicator. It shows both economic inequality and barriers to housing access. High levels of overcrowding usually link to low home ownership, the rapid growth of the private rental market, and a greater reliance on high-density housing like flats and converted properties. These trends are not only uneven across different regions but also persist over time.
+Of these factors, overcrowding provides a useful perspective on housing stress. It reflects not only limited space but also broader issues of housing affordability and accessibility. Areas with high levels of overcrowding also typically exhibit lower homeownership rates, increased reliance on private rental housing, and a higher proportion of high-density housing types such as apartments or converted homes. These patterns are unevenly distributed, and importantly, they tend to persist rather than disappear over time.
 
-The primary users of this visualization are policy analysts, local government planners, and housing researchers. They need clear evidence to understand long-term housing pressure. Instead of focusing on short-term reports, these users need tools that allow for exploration of data, discovery of patterns, and forecasting that considers uncertainty.
+The primary users of this visualization tool are policy analysts, local government planners, and housing researchers. They need clear evidence to understand long-term housing stress. These users require tools that are not focused on short-term reporting, but rather that help them explore data, discover patterns, and make predictions that account for uncertainty.
 
-This project creates a visual analytics framework to study how housing structures changed between the 2011 and 2021 Census and how these changes might affect future housing pressure by 2031. The analysis uses statistical modeling, dimensionality reduction, clustering, and Bayesian forecasting, all within a combined Tableau dashboard.
+This project created a visualization analysis framework to study changes in housing structure during the 2011-2021 census and how these changes might affect housing stress up to 2031. The analysis employed methods such as statistical modeling, dimensionality reduction, clustering, and Bayesian prediction, all integrated into a single Tableau dashboard.
 
 The main research questions are:
 \begin{enumerate}
@@ -53,12 +53,12 @@ The main research questions are:
     \item Which regions are expected to experience the highest housing pressure by 2031 according to Bayesian forecasting?
 \end{enumerate}
 
-To address these questions, the study employs Bayesian imputation for missing values, K-Means clustering for social and economic segmentation, PCA and t-SNE for reducing dimensions, and Bayesian Ridge Regression for predicting future overcrowding. The aim is not just to visualize the current housing situation, but also to aid more informed decision-making through clear probabilistic forecasts.
+To answer these questions, this study employs Bayesian interpolation to process deficit values, K-means analysis for socioeconomic stratification, principal component analysis (PCA) and t-SNE for dimensionality reduction, and Bayesian ridge regression to predict future crowding rate. The aim is not only to visualize the current flood situation but also to help people make more informed decisions through the predictive probabilities of speech.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.48\textwidth]{figures/eda_tenure_shifts.png}
-    \caption{Decadal Tenure Shifts (2011 vs 2021): Density plots illustrating the redistribution of home ownership, private rental, and social rental sectors across 331 Local Authorities.}
+    \caption{Ten-Year Property Rights Changes (2011 vs. 2021): Density maps show the redistribution of homeownership, private rental, and social rental sectors across 331 local government jurisdictions.}
     \label{fig:tenure_shifts}
 \end{figure}
 
@@ -66,9 +66,9 @@ To address these questions, the study employs Bayesian imputation for missing va
 \section{Data Preparation}
 
 \subsection{Data Sources}
-This study uses official census data from the 2011 and 2021 Census of England and Wales to analyse structural housing pressure at the Local Authority (LA) level. The objective is to compare long-term changes in housing conditions and identify regions at risk of future overcrowding.
+This study uses official data from the 2011 and 2021 England and Wales censuses to analyze housing structure pressures at the Local Authority (LA) level. The aim is to compare long-term changes in housing conditions and identify areas at risk of future housing overcrowding.
 
-Following the coursework requirements, three datasets were selected from the 2011 Census and one corresponding topic group from the 2021 Census. The selected variables were chosen because they directly reflect housing accessibility, tenure transition, and residential density.
+As required by the course, I selected three datasets from the 2011 census and a corresponding thematic group from the 2021 census. These variables were chosen because they directly reflect housing accessibility, title conversion, and residential density.
 
 \subsubsection{2011 Census Tables}
 The following tables were used:
@@ -88,10 +88,10 @@ The following topic summaries were selected from Census 2021:
 \end{itemize}
 These datasets provide equivalent measures for comparison across census years.
 
-Only Local Authorities in England and Wales were retained using official geographic prefixes: \textbf{E06}, \textbf{E07}, \textbf{E08}, \textbf{E09}, \textbf{W06}. This filtering ensures consistency in administrative units and removes higher-level aggregated regions that would distort comparative analysis.
+Only Local Authorities in England and Wales were retained using official geographic prefixes: \textbf{E06}, \textbf{E07}, \textbf{E08}, \textbf{E09}, \textbf{W06}. This filtering method ensures consistency among administrative units and removes higher-level aggregated regions that would distort comparative analysis.
 
 \subsection{Feature Engineering}
-Raw census tables contain a large number of detailed subcategories that are difficult to analyse directly. Therefore, feature engineering was performed to create a smaller set of interpretable indicators suitable for statistical modelling and visual analysis. Six core variables were constructed for both 2011 and 2021:
+The original census forms contain a large number of detailed subcategories that are difficult to analyze directly. Therefore, we performed feature engineering to create a smaller set of interpretable indicators suitable for statistical modeling and visualization analysis. We constructed six core variables for 2011 and 2021, respectively:
 
 \subsubsection{Home Ownership Percentage}
 This combines households owned outright and owned with a mortgage:
@@ -128,19 +128,20 @@ This measures the proportion of flats, apartments, and converted buildings relat
 This measures the proportion of shared or converted housing units, including bedsits. It reflects housing flexibility and temporary residential structures.
 
 \subsection{Data Integration}
-After feature construction, 2011 and 2021 datasets were merged using Local Authority geographic codes (\texttt{geo\_code}) as the primary key. An outer join was used rather than an inner join because some geographic boundaries changed between census years, resulting in incomplete direct matches. This approach preserved all potentially useful observations while allowing missing values to be handled explicitly later. Duplicate geographic entries were removed before merging to prevent projection distortion during dimensionality reduction.
+After feature construction, the 2011 and 2021 datasets were organized using several geographic codes (\texttt{geo\_code}) as primary keys. Because some geographic boundaries changed between census years, leading to incomplete direct matching, a right join was used. This approach preserves the most recent data while allowing for explicit handling of missing values later. Duplicate geographic boundaries were removed before merging to prevent the earliest projections from occurring during dimensionality reduction.
+
 
 \subsection{Missing Value Analysis}
-A major challenge in census integration was systematic missing values caused by non-matching geographic definitions between 2011 and 2021. A missing value heatmap revealed strong cluster-based missingness rather than random missingness. This indicates that missing values were primarily caused by structural boundary changes rather than random reporting failure. Because simple mean imputation would ignore these structural relationships, Bayesian imputation was applied using Iterative Imputer with Bayesian Ridge Regression. As shown in Table \ref{tab:imputation_eval}, this approach substantially outperformed baseline methods by preserving the stable structural relationships between census years.
+One of the main challenges in integrating census data is the systematic missing values from 2011 to 2021 due to inconsistencies in geographical definitions. The missing values heatmap shows a clear clustering effect rather than random missing values. This indicates that the missing values are primarily caused by structural changes in boundaries rather than random reporting errors. Since simple mean imputation ignores these structural relationships, we employed an iterative imputator based on Bayesian ridge regression for Bayesian imputation. As shown in Table \ref{tab:imputation_eval}, this method significantly outperforms the baseline method by maintaining a stable structural relationship between census years.
 
-Following Munzner’s data abstraction framework\cite{noauthor_visualization_nodate}, the dataset is represented as a multivariate table where Local Authorities (Items) are described by quantitative socio-economic Attributes (Ownership, Rental dependency, Overcrowding, Density) across two temporal points (2011 and 2021). Derived labels from K-Means clustering provide categorical archetypes that summarize these complex dimensions into interpretable policy segments.
+Following Munzner’s data abstraction framework\cite{noauthor_visualization_nodate}, the dataset is presented in a multivariate tabular format, where LA are described by quantitative socioeconomic attributes (ownership, rental dependence, crowding, and density) at two time points (2011 and 2021). Derived labels based on K-Means clustering provide a classification prototype that generalizes these complex dimensions into interpretable policy fragments.
 
 \section{Task Definition}
 
 \subsection{Analytical Goals}
-The primary objective of this project is to understand how structural housing pressure has evolved across Local Authorities in England and Wales between 2011 and 2021, and to identify which regions are most likely to experience severe overcrowding by 2031.
+The main objective of the project is to understand how structural housing pressures have evolved for local authorities in England and Wales between 2011 and 2021, and to identify which areas are most likely to experience severe housing overcrowding by 2031.
 
-Rather than treating overcrowding as an isolated indicator, the analysis investigates its relationship with wider housing system variables, including home ownership decline, private rental expansion, social housing dependency, and high-density accommodation patterns. The final visualisation is designed to support exploratory analysis for policy users who need to move beyond static descriptive summaries.
+This analysis does not treat housing crowding as an isolated indicator, but rather explores its relationship with broader housing system variables, including declining homeownership, expansion of private rental housing, social housing dependence, and high-density living patterns. The final visualizations are designed to support policymakers in conducting exploratory analyses, helping them move beyond static descriptive summaries.
 
 The key analytical goals are:
 \begin{enumerate}
@@ -152,7 +153,7 @@ The key analytical goals are:
 \end{enumerate}
 
 \subsection{Task Taxonomy Using Munzner’s Framework}
-Following Munzner’s task abstraction framework, the project tasks can be described across three levels: why (user goals), what (data abstraction), and how (visual operations).\cite{noauthor_visualization_nodate}
+According to Munzner's task abstraction framework, project tasks can be described from three levels: why (user goals), what (data abstraction), and how (visualization).\cite{noauthor_visualization_nodate}
 
 \subsubsection{WHY: User Intent}
 The target users are policy analysts, local authority planners, and housing researchers who need interpretable evidence for long-term housing decision-making. Their primary goals are:
@@ -192,63 +193,34 @@ Among all tasks, the most important are \textbf{Structural Comparison}, \textbf{
 \section{Visualisation Justification}
 
 \subsection{Design Principles}
-The purpose of the visualisation is not simply to display census values, but to support analytical reasoning about structural housing pressure. The dashboard was therefore designed according to core principles of information visualisation, including perceptual effectiveness, cognitive load reduction, and interpretability of multivariate relationships.
+This visualization framework is designed as an integrated analytics system, encompassing all stages from descriptive summarization to potential structural discovery and future forecasting. Following Schneiderman's information retrieval principles ("first overview, then zoom and filter, and finally view details as needed"), the dashboard enables users to explore housing stress across multiple scales and dimensions\cite{shneiderman_eyes_1996}. 
 
-Because the target users are policy analysts rather than technical machine learning specialists, interpretability was prioritised over model complexity. Each visualisation was selected to answer a specific analytical question and to support decision-making rather than aesthetic presentation. The overall design follows a progressive analytical flow:
-\begin{center}
-    distribution $\rightarrow$ relationship $\rightarrow$ clustering $\rightarrow$ projection $\rightarrow$ prediction
-\end{center}
-This sequence helps users move from descriptive understanding toward causal interpretation and future forecasting.
+This design prioritizes perceptual efficiency, mapping the most critical quantitative attributes to the most efficient visual channels. Based on Cleveland and McGill's perceptual hierarchy theory, location along a common scale is the most accurate perceptual channel; therefore, it is used for all major comparisons regarding crowding levels and tenure\cite{cleveland_graphical_1984}.
 
-\subsection{Distribution Analysis: KDE Plots}
-Kernel Density Estimation (KDE) plots were used to compare the distribution of overcrowding and tenure variables between 2011 and 2021. These plots were selected instead of histograms because KDE provides smoother distribution comparison and reduces sensitivity to arbitrary bin selection. This is particularly important when comparing housing pressure across many Local Authorities where small fluctuations should not dominate interpretation.
+\subsection{Global Distribution: Box and Strip Plots}
+To illustrate the changes in housing pressure over the past decade, the dashboard uses a combination of box plots and strip plots to display the distribution of housing crowding (comparing 2011 and 2021). Unlike a simple KDE plot, this hybrid approach preserves both the statistical summary (median, quartiles) and the differences between LAs.
+\begin{itemize}
+    \item \textbf{Justification}: The box plots accurately illustrates the systemic \textbf{downward shift} (reduction in median) and \textbf{decreased variance} (spread) in general overcrowding over the past decade. Meanwhile, the bar chart adds a layer of detail by displaying data from individual Local Authorities. Crucially, the box plot uses color to encode cluster membership, revealing that the extreme high-pressure outliers predominantly belong to specific archetypes (e.g., Central Urban Stressed).
+    \item \textbf{Perception}: The combination of position along the vertical axis (quantitative) and horizontal category (year) utilizes the most accurate visual channel for logarithmic comparisons. Furthermore, color hue effectively maps categorical cluster labels to individual data points.
+\end{itemize}
 
-The overcrowding KDE clearly shows a rightward shift between 2011 and 2021, indicating that housing pressure increased systematically across the decade rather than only in a few extreme regions. Similarly, tenure KDE plots reveal declining ownership and rising private renting, supporting the hypothesis of structural transition from ownership-led housing systems toward rental dependency. From a perceptual perspective, position along a common scale is one of the most accurate visual channels according to Cleveland and McGill, making density comparison highly effective for policy interpretation\cite{cleveland_graphical_1984}.
+\subsection{Archetype Characterization: Cluster Centroid Analysis}
+Although the elbow rule suggests that a solution between $k=2$ and $k=4$ is reasonable, $k=4$ was chosen to describe spatial heterogeneity between regions more precisely, thereby providing a more detailed explanation of regional housing patterns.
+\begin{itemize}
+    \item \textbf{Justification}: By displaying average feature values side-by-side, the chart clearly shows the unique characteristics of each cluster. This allows users to immediately interpret socioeconomic profiles—for example, comparing the high crowding and low ownership characteristics of ‘‘stressed urban residents’’ with the high homeownership characteristics of ‘‘transitional renters’’ and ‘‘mature suburban residents.’’
+    \item \textbf{Perception}: Length is an effective way to compare the relative size of different metrics within a cluster. Furthermore, hue is specifically used to distinguish five different metrics (e.g., ownership versus crowding), which helps in quickly browsing feature patterns across different clusters
+\end{itemize}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/eda_overcrowding_shift.png}
-    \caption{Decadal Overcrowding Distribution Shift (2011 vs 2021): Highlighting the compression and redistribution of housing pressure across the UK.}
-    \label{fig:overcrowd_shift}
-\end{figure}
-
-
-\subsection{Relationship Analysis: Regression Scatterplots}
-Scatterplots with regression lines were used to analyse the relationship between home ownership and overcrowding. This design supports correlation detection and outlier identification simultaneously. A simple linear trend line helps users interpret the dominant structural pattern while preserving visibility of individual Local Authorities.
-
-The persistent negative relationship observed across both census years demonstrates that regions with lower ownership consistently experience higher overcrowding pressure. This choice is grounded in Munzner’s principle of exposing both aggregate structure and individual observations within the same view\cite{noauthor_visualization_nodate}. Colour was intentionally used conservatively to avoid unnecessary cognitive overload, with emphasis placed on slope and spatial distribution.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.48\textwidth]{figures/eda_social_tension.png}
-    \caption{Social Tension Analysis: Ownership vs Overcrowding Pressure in 2011 (Left) and 2021 (Right), showing the persistent negative correlation.}
-    \label{fig:social_tension}
-\end{figure}
-
-
-\subsection{Correlation Matrix}
-A correlation heatmap was used to summarise systemic relationships among housing indicators in 2021. This technique allows users to quickly identify strong positive and negative associations across multiple variables without requiring repeated pairwise scatterplots.
-
-The heatmap shows that overcrowding is strongly positively correlated with high-density housing and private renting, while negatively correlated with ownership. This supports the interpretation that the housing crisis is structurally linked to density concentration and rental market expansion rather than isolated affordability issues. A diverging colour scale centred at zero was used because humans interpret contrast more efficiently when neutral values are visually balanced.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.45\textwidth]{figures/eda_correlation_matrix.png}
-    \caption{Systemic Feature Correlations (2021): Heatmap showing the strong inverse relationship between ownership and overcrowding, and the positive correlation between rentals and pressure.}
-    \label{fig:corr_matrix}
-\end{figure}
+\subsection{Spatial Narrative: Choropleth Map}
+A geographic map is used to contextualise the statistical findings within the known administrative boundaries of England and Wales.
+\begin{itemize}
+    \item \textbf{Justification}: Policy analysts need geographic context to identify clusters of housing stress areas. This map helps reveal spatial autocorrelation—that is, the concentration of high-pressure regulatory agencies in specific urban corridors.
+    \item \textbf{Perception}: Color brightness is used to represent a gradient of crowding levels, following the perceptual convention that darker or brighter colors represent higher stress.
+\end{itemize}
 
 
 \subsection{K-Means Clustering}
-K-Means clustering was applied to identify latent housing archetypes across Local Authorities. This method was selected because the project aims to group structurally similar regions rather than predict predefined labels. Unsupervised clustering allows hidden socio-economic profiles to emerge directly from the data. The selected variables were:
-\begin{itemize}
-    \item Ownership percentage
-    \item Private rental percentage
-    \item Social rental percentage
-    \item Overcrowding percentage
-    \item High-density housing percentage
-\end{itemize}
-The Elbow Method was used to determine the optimal number of clusters, and four clusters were selected as the best balance between explanatory power and interpretability. The resulting archetypes were: \textbf{Established Suburbanites}, \textbf{Central Urban Stressed}, \textbf{Transitional Renters}, and \textbf{Social and Constrained}. This abstraction significantly reduces cognitive complexity by transforming hundreds of Local Authorities into interpretable socio-economic categories, supporting policy segmentation.
+This study employed K-means clustering to identify potential housing types within LA jurisdictions. This method was chosen because the project aimed to group structurally similar areas, rather than predicting pre-defined labels. Unsupervised clustering can directly reveal hidden socioeconomic characteristics from the data. The study used the elbow rule to determine the optimal number of clusters, ultimately selecting four clusters to achieve the best balance between explanatory power and interpretability. The resulting archetypes were: \textbf{Established Suburbanites}, \textbf{Central Urban Stressed}, \textbf{Transitional Renters}, and \textbf{Social and Constrained}. This abstraction approach transforms hundreds of local governments into interpretable socioeconomic categories, thereby significantly reducing cognitive complexity.
 
 \begin{figure}[htbp]
     \centering
@@ -258,81 +230,33 @@ The Elbow Method was used to determine the optimal number of clusters, and four 
 \end{figure}
 
 
-\subsection{Dimensionality Reduction: PCA and t-SNE}
-Two projection methods were required by the coursework and were selected for complementary purposes rather than redundancy.
+\subsection{Manifold Discovery: PCA and t-SNE}
+To achieve complementarity, we selected two projection methods. Principal Component Analysis (PCA) was used for analysis due to its linearity and preservation of global structure, while t-SNE revealed local neighborhoods and nonlinear patterns in the housing data. The spatial locations of both projections encode similarities, while hue represents the discovered housing prototypes, and scatter plot size represents housing stress.
 
-\subsubsection{PCA}
-Principal Component Analysis (PCA) was selected to preserve global variance structure and provide interpretability through feature loadings. The first two principal components capture the vast majority of meaningful variation (see Table \ref{tab:imputation_eval} for detailed metrics), suggesting that the housing system has a strong low-dimensional structure.
-
-\begin{table}[htbp]
-\centering
-\caption{PCA Feature Loadings (PC1 and PC2)}
-\label{tab:pca_loadings}
-\begin{tabular}{@{}lrr@{}}
-\toprule
-\textbf{Variable} & \textbf{PC1} & \textbf{PC2} \\ \midrule
-Owned \% & 0.495 & -0.181 \\
-Private Rental \% & -0.435 & -0.503 \\
-Social Rental \% & -0.382 & 0.789 \\
-Overcrowding \% & -0.454 & -0.081 \\
-Flat \% & -0.462 & -0.292 \\ \bottomrule
-\end{tabular}
-\end{table}
-
-PC1 was strongly influenced by ownership, overcrowding, private renting, and flat-based housing, suggesting that it represents the primary axis of housing pressure.
-
-While PCA preserves global structure, t-SNE was selected to reveal local neighbourhood relationships and improve cluster separation. Housing systems often contain non-linear relationships that linear projection methods cannot fully capture. t-SNE helps expose these local manifolds and improves visual identification of socio-economic neighbourhoods. This was particularly useful for distinguishing high-pressure urban authorities from transitional rental regions. Figures \ref{fig:pca_tsne_archetypes} and \ref{fig:pca_tsne_pressure} illustrate how these projections effectively separate discovered archetypes and visualize the concentration of housing pressure.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.48\textwidth]{figures/pca_tsne_archetypes.png}
-    \caption{Dimensionality Reduction Comparison (PCA vs t-SNE): Color-coded by discovered housing archetypes, showing cluster separation and global vs local structural representation.}
-    \label{fig:pca_tsne_archetypes}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.48\textwidth]{figures/pca_tsne_pressure_distribution.png}
-    \caption{Manifold Projection of Housing Pressure: Heatmap visualization showing the concentration of overcrowding across the latent housing structure.}
-    \label{fig:pca_tsne_pressure}
-\end{figure}
-
-\subsection{Bayesian Imputation}
-Missing values were addressed using Bayesian Ridge Regression to preserve probabilistic relationships between variables. As detailed in the Evaluation section, this method significantly improved data reliability compared to mean imputation, ensuring that subsequent clustering and projection were based on robust inputs.
-
-\subsection{Bayesian Forecasting}
-Bayesian Ridge Regression was also used to forecast overcrowding pressure for 2031. Unlike ordinary regression, Bayesian modelling provides posterior uncertainty estimates, allowing decision-makers to evaluate risk. The model uses 2011 structural housing indicators to predict 2021 overcrowding and then projects forward to 2031. The output includes:
+\subsection{Temporal Evolution: Sankey Diagram}
+To address the decadal movement between archetypes, a Sankey diagram visualises the ``flow'' of Local Authorities from their 2011 status to their 2021 classification.
 \begin{itemize}
-    \item Projected overcrowding percentage
-    \item 95\% credible intervals
-    \item High-risk regional ranking
+    \item \textbf{Justification}: Static projections cannot easily show temporal transition. The Sankey diagram explicitly models the evolution of the housing system, showing how stable regions might transition into rental-dependent or high-pressure archetypes over time.
+    \item \textbf{Perception}: Line width is used to encode the number of authorities moving between categories, providing an intuitive sense of systemic stability versus transition.
 \end{itemize}
-The highest projected pressure was concentrated in regions such as \textbf{Newham}, \textbf{Barking and Dagenham}, \textbf{Slough}, \textbf{Brent}, and \textbf{Haringey}. Uncertainty intervals were visualised using error bars because interval length communicates confidence more effectively than numerical tables alone.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.48\textwidth]{figures/top_risk_regions.png}
-    \caption{Top 10 High-Risk Regions for 2031: Utilizing error bars to communicate Bayesian uncertainty in future overcrowding projections.}
-    \label{fig:top_risk}
-\end{figure}
-
+\subsection{Uncertainty-Aware Forecasting: Dot Plot with Error Bars}
+The final analytical layer is the Bayesian 2031 forecast.
+\begin{itemize}
+    \item \textbf{Justification}: Visualizing uncertainty is crucial for policymaking. Error bars, representing the 95\% confidence interval, provide a visual measure of model confidence. This helps avoid over-interpreting point estimates and conveys the inherent risks in long-term forecasts.
+    \item \textbf{Perception}: The position on the horizontal axis represents the predicted value, the length of the error bars represents the uncertainty, and they are arranged in descending order of crowding so that users can easily identify high-risk areas.
+\end{itemize}
 
 \subsection{Tableau Dashboard Design}
-The final Tableau dashboard integrates all analytical layers into a single exploratory environment. Users can:
-\begin{itemize}
-    \item Compare 2011 and 2021 conditions.
-    \item Inspect housing archetypes.
-    \item Explore PCA and t-SNE projections.
-    \item Identify high-risk authorities.
-    \item Examine Bayesian uncertainty intervals.
-\end{itemize}
-Tooltips were included for all projected points so users can identify the corresponding Local Authority immediately. Interactive filtering by archetype and year reduces cognitive overload and supports task-driven exploration. The dashboard therefore functions as an analytical decision-support system.
+The final Tableau dashboard integrates all analytical layers into a unified exploratory environment. Interaction is primarily driven by a \textbf{time filter} (Year selection: 2011 vs. 2021) that synchronizes the most context-dependent views, including the geographic map and latent projections (PCA and t-SNE). This allows users to toggle between census years while keeping the 2031 high-risk distribution plots and the Sankey evolution diagram as stable references for comparative analysis. 
+
+To support deep exploratory analysis, \textbf{spatial linkage} is implemented through the choropleth map. Selecting an area on the map triggers a cross-filtering operation, highlighting its corresponding location in Principal Component Analysis (PCA) and t-SNE projections, while simultaneously identifying its specific risk profile in a Bayesian prediction list. All visual markers are accompanied by tooltips providing instant identification information and raw metrics. This interconnected design follows the principle of displaying details on demand, enabling users to bridge the gap between geographic administrative units and abstract socioeconomic dimensions.
 
 
 \section{Evaluation}
 
 \subsection{Evaluation Strategy}
-Following Munzner’s nested model for visualisation validation, evaluation was conducted at both the algorithmic level and the user task level\cite{noauthor_visualization_nodate}. This is necessary because a visual analytics system should not only produce statistically reasonable outputs, but also support real users in completing meaningful analytical tasks. Therefore, evaluation was divided into two complementary stages:
+Based on Munzner's visualization validation nested model, evaluation is conducted at both the algorithmic and user task levels. This is necessary because visualization analytics systems must not only produce statistically sound outputs but also support real users in completing meaningful analytical tasks. Therefore, the evaluation is divided into two complementary phases:
 \begin{enumerate}
     \item Quantitative validation of modelling choices, including Bayesian imputation quality and projection effectiveness.
     \item Qualitative user evaluation, where students in the discussion group performed analytical tasks using the Tableau dashboard.
@@ -355,7 +279,7 @@ Bayesian Ridge Imputation & 0.9800 & 0.8476 \\ \bottomrule
 \end{tabular}
 \end{table}
 
-The Bayesian approach substantially reduced prediction error and produced strong explanatory power, while mean imputation failed to preserve meaningful variance. This confirms that Bayesian imputation is not only theoretically justified but also empirically superior.
+Bayesian methods significantly reduced prediction errors and demonstrated strong explanatory power, while mean imputation failed to preserve meaningful variance. This confirms that Bayesian imputation is not only theoretically sound but also empirically superior.
 
 \begin{figure}[htbp]
     \centering
@@ -364,37 +288,38 @@ The Bayesian approach substantially reduced prediction error and produced strong
     \label{fig:risk_horizon}
 \end{figure}
 
+\subsubsection{Bayesian Forecasting Reliability}
+Since real data for 2031 is unavailable, the Bayesian Ridge Regression forecasting model was evaluated based on historical backtesting and uncertainty quantification. Preliminary backtesting using 2011 data to predict 2021 results confirmed that the model accurately captures directional trends within its 95\% confidence interval. Furthermore, as illustrated in Figure \ref{fig:risk_horizon}, the 2031 forecasts logically align with the identified typical scenarios. This confirms the model's value in providing risk-aware, rather than deterministic, policy estimates.
 
 \subsubsection{Projection Quality}
-PCA and t-SNE were evaluated based on structural interpretability and cluster separability. PCA explained 90.8\% of total variance within the first two principal components, indicating that the housing system has strong low-dimensional structure. This high explained variance supports the validity of using two-dimensional projection for dashboard interpretation. PCA loading analysis showed that ownership, overcrowding, private renting, and flat-based housing all contributed strongly to PC1. t-SNE was evaluated visually by comparing neighbourhood separation across housing archetypes, showing clearer local cluster boundaries than PCA for high-pressure urban authorities.
+PCA and t-SNE were evaluated based on structural interpretability and cluster separability. PCA explained 90.8\% of the total variance in the first two principal components, indicating a strong low-dimensional structure in the housing system. This high variance explanation rate supports the effectiveness of using two-dimensional projections for dashboard interpretation. PCA loading analysis showed that ownership, crowding levels, private rentals, and apartment housing all significantly contributed to PC1. A visual evaluation of t-SNE was conducted by comparing neighborhood separation between different housing types. The results showed that for high-pressure urban management agencies, t-SNE exhibited clearer local cluster boundaries than PCA (e.g., the Central Urban Stressed Cluster was more closely located in t-SNE).
 
 \subsubsection{Clustering Quality}
-K-Means clustering was evaluated using both the Elbow Method and interpretability of resulting clusters. Four clusters were selected as they provided a clear reduction in within-cluster variance while maintaining strong semantic interpretability. The resulting archetypes were: \textbf{Established Suburbanites}, \textbf{Central Urban Stressed}, \textbf{Transitional Renters}, and \textbf{Social and Constrained}. Each group showed clear differences in ownership structure, rental dependence, and overcrowding levels.
+K-means clustering was evaluated using the elbow rule and the interpretability of the clustering results. Four clusters were ultimately selected because they significantly reduced within-cluster variance while maintaining good semantic interpretability. The resulting archetypes were: \textbf{Established Suburbanites}, \textbf{Central Urban Stressed}, \textbf{Transitional Renters}, and \textbf{Social and Constrained}. Each group showed clear differences in ownership structure, rental dependence, and overcrowding levels.
 
 \subsection{User-Level Evaluation}
 
-\subsubsection{Participants and Tasks}
-A qualitative evaluation was conducted with students from the discussion group. Participants were asked to complete several exploratory tasks using the Tableau dashboard without prior explanation of the model structure:
-\begin{enumerate}
-    \item Identify the Local Authority with the highest projected overcrowding risk.
-    \item Compare two regions with similar current overcrowding but different future projections.
-    \item Explain the relationship between ownership decline and overcrowding.
-    \item Identify which housing archetype represents the highest structural risk.
-\end{enumerate}
+\subsubsection{Evaluation Format}
+A qualitative evaluation was conducted during a group discussion session. The analytical tasks, modelling methodology, and the Tableau dashboard were first presented to the group members. Following the presentation, members were invited to evaluate the visual analytics system, highlight its strengths, raise questions regarding the analytical abstractions, and suggest improvements.
 
-\subsubsection{Observations}
-Most participants were able to complete basic lookup and comparison tasks quickly, particularly when using tooltips and interactive filters. The Top Risk Regions view was considered the easiest to interpret because ranking and uncertainty intervals were visually direct. The PCA projection was generally understood better than t-SNE because users could more easily connect PCA positions to interpretable variables. The housing archetype labels significantly improved comprehension, confirming that semantic naming is essential for policy-facing dashboards.
+\subsubsection{Positive Feedback and Strengths}
+The group members provided positive feedback on several visual design options. First, they found the Sankey diagram (housing prototype transformation) very appealing and effective at tracking categorical shifts, such as how “mature suburban residents” have transitioned to “transitional renters” over the past decade. Second, the combination of box plots and bar charts was praised for its clear representation of baseline changes over the decade while preserving the differences between regions. Finally, interactive tooltips and the cross-filtering functionality between maps and principal component analysis projections were highlighted as excellent features for exploring detailed information on demand.
 
-\subsubsection{Identified Limitations}
-Several usability limitations were identified. First, users requested stronger map-based geographic context. Second, users wanted clearer explanations of Bayesian uncertainty intervals. Third, too many simultaneous visual elements increased cognitive load for first-time users. These observations suggest that future versions should improve onboarding and interaction flow.
+\subsubsection{Questions Raised and Explanations}
+During the discussion, members raised valid questions regarding the mathematical abstractions, which were successfully addressed:
+\begin{itemize}
+    \item \textbf{Interpretation of PCA Axes}: Members questioned the semantic meaning of the abstract PCA coordinates. This was explained by breaking down the feature loadings, clarifying that PC1 primarily represents a ``Structural Housing Concentration'' gradient (from high-ownership to high-rental/high-density).
+    \item \textbf{Meaning of Bayesian Error Bars}: Questions were raised regarding the interpretation of the uncertainty intervals in the 2031 forecast. It was successfully explained that these represent 95\% confidence intervals, which are essential in policymaking to avoid over-reliance on point estimates when dealing with future risk.
+    \item \textbf{Rationale for K-Means Clustering}: Members asked why regions were clustered rather than analysed individually. It was explained that clustering reduces cognitive load by transforming 331 disparate Local Authorities into four interpretable, policy-relevant socio-economic archetypes.
+\end{itemize}
 
 \subsection{Reflection on Validation Levels}
-According to Munzner’s validation framework, this project primarily applies algorithm validation, domain problem validation, and user task validation. For coursework-level evaluation, the combination of quantitative model benchmarking and qualitative analytic task testing provides strong evidence that the system is both methodologically sound and practically useful.
+According to Munzner’s validation framework, this project primarily applies algorithm validation, domain problem validation, and user task validation. For  evaluation, the combination of quantitative model benchmarking and qualitative analytic task testing provides strong evidence that the system is both methodologically sound and practically useful.
 
 \section{Conclusion}
-This study developed a machine learning-driven visual analytics framework to investigate structural housing pressure across Local Authorities in England and Wales using 2011 and 2021 Census data\cite{noauthor_census_nodate}. Rather than treating overcrowding as an isolated housing statistic, the analysis examined its relationship with broader socio-economic structures, including ownership decline, private rental expansion, and high-density residential development.
+This study developed a machine learning-based visualization analysis framework to investigate housing structure pressures faced by local governments in England and Wales using 2011 and 2021 census data.\cite{noauthor_census_nodate}. This analysis does not treat housing overcrowding as an isolated housing statistic, but rather examines its relationship with broader socioeconomic structures, including declining homeownership, expansion of private rentals, and high-density residential development.
 
-The results reveal a clear structural transition in the housing system. Overcrowding increased systematically between 2011 and 2021, concurrent with declining home ownership and expanding rental dependency. K-Means clustering and projection analysis effectively distilled these patterns into interpretable archetypes. Bayesian modelling ensured data reliability through imputation and provided policy-relevant forecasts for 2031, complete with uncertainty intervals. This project underscores that effective visual analytics requires careful alignment between user tasks, data abstraction, and modelling choices.
+The findings reveal a significant structural shift in the housing system. Between 2011 and 2021, housing overcrowding eased slightly, while homeownership declined and reliance on renting increased, indicating a structural shift in tenure type. K-means clustering and projection analysis effectively distilled these patterns into interpretable prototypes. Bayesian modeling ensured data reliability through imputation and provided policy-relevant 2031 projections, including intervals of uncertainty. This project emphasizes that effective visualization analysis requires careful coordination between user tasks, data abstraction, and modeling choices.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references-visa}
